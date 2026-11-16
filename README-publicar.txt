@@ -16,3 +16,8 @@ PENDIENTE (buscar el fondo ámbar "ph" en index.html y refund.html):
 - Plazo de reembolso (el borrador dice 14 días)
 - Quitar la frase de SmartScreen cuando el .exe esté firmado
 - Los textos legales son borradores: revísalos con un abogado.
+
+LANZAMIENTO (cuando Dodo apruebe y el instalador esté en Releases)
+- En index.html busca los comentarios "LANZAMIENTO": ahí están guardados el bloque de descarga y el botón de compra originales.
+  Reemplaza el bloque "PRÓXIMAMENTE" por el original y pon tu SHA-256 y el enlace REAL de compra (modo live).
+- Actualiza también version.json con el sha256 del instalador.

@@ -50,3 +50,10 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
 .shot{padding:0;overflow:hidden;min-height:0;display:block}
 .shot img{display:block;width:100%;height:auto}
 .shot{border-style:solid}
+
+.btn.disabled{opacity:.55;pointer-events:none;cursor:default}
+.soon-box{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#1b0d13,#0b070a);padding:28px 24px;text-align:center;box-shadow:0 0 28px rgba(255,59,78,.12)}
+.soon-box h3{margin:12px 0 6px;font-size:22px}
+.soon-box p{color:var(--muted);max-width:620px;margin:0 auto 14px}
+.soon-pill{display:inline-block;padding:5px 14px;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);font-size:12px;font-weight:700;letter-spacing:.14em;animation:soonp 2.2s ease-in-out infinite}
+@keyframes soonp{0%,100%{box-shadow:0 0 0 rgba(39,230,242,0)}50%{box-shadow:0 0 16px rgba(39,230,242,.55)}}
