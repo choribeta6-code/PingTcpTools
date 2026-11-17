@@ -57,25 +57,3 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
 .soon-box p{color:var(--muted);max-width:620px;margin:0 auto 14px}
 .soon-pill{display:inline-block;padding:5px 14px;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);font-size:12px;font-weight:700;letter-spacing:.14em;animation:soonp 2.2s ease-in-out infinite}
 @keyframes soonp{0%,100%{box-shadow:0 0 0 rgba(39,230,242,0)}50%{box-shadow:0 0 16px rgba(39,230,242,.55)}}
-/* ---- Guías ---- */
-.doc.wide{max-width:1100px}
-.guide{max-width:860px}
-.doc h3{font-size:17px;margin:20px 0 6px;color:var(--txt)}
-.doc .lead{font-size:18px;color:#efe2e5;line-height:1.65}
-.doc p,.doc li{line-height:1.7}
-.doc ol{padding-left:22px}.doc li{margin:4px 0}
-.doc code{background:#1d1015;border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:var(--cyan);font-size:.92em;word-break:break-word}
-.doc table{margin:14px 0 6px}.doc th{color:var(--cyan);background:#140b0f}
-.crumbs{font-size:13px;color:var(--muted);margin-bottom:14px}.crumbs a{color:var(--muted)}
-.en-note{background:#0b1f23;border:1px solid var(--cyan);border-radius:10px;padding:10px 14px;font-size:14px}
-.gfig{margin:20px 0}.gfig img{width:100%;height:auto;border:1px solid var(--line);border-radius:14px;box-shadow:0 0 24px rgba(255,59,78,.12)}
-.gfig figcaption{font-size:13px;color:var(--muted);margin-top:6px}
-.toc{background:#120a0e;border:1px solid var(--line);border-left:3px solid var(--red);border-radius:12px;padding:14px 18px;margin:22px 0}
-.toc-t{font-weight:800;margin-bottom:6px}.toc ol{margin:0;columns:2;column-gap:28px}.toc li{font-size:14.5px;break-inside:avoid}
-@media(max-width:640px){.toc ol{columns:1}}
-.cta{border:1px solid var(--red);border-radius:16px;background:linear-gradient(135deg,#2a0f18,#0b1a1e);padding:22px;margin:30px 0;text-align:center;box-shadow:0 0 26px rgba(255,59,78,.18)}
-.cta-t{font-size:21px;font-weight:800;margin-bottom:6px}.cta p{color:#d9ccd0!important;max-width:600px;margin:0 auto 14px}.cta .btns{justify-content:center}
-.faq-g details{background:#120a0e;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0}
-.faq-g summary{cursor:pointer;font-weight:700}.faq-g details[open] summary{color:var(--cyan)}.faq-g details p{margin:8px 0 0}
-.rel{margin-top:30px}.rcard{text-decoration:none;color:var(--txt);display:block}.rcard .more{display:inline-block;margin-top:10px;color:var(--cyan);font-size:14px;font-weight:700}
-.disc{font-size:13px;color:var(--muted)!important;border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
