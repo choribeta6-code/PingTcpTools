@@ -33,3 +33,12 @@
       }).catch(function(){});
   });
 })();
+
+/* SHA-256 del instalador desde version.json (se oculta si está vacío) */
+document.addEventListener('DOMContentLoaded',function(){
+  var box=document.getElementById('shaBox'),v=document.getElementById('shaVal');
+  if(!box||!v||!window.fetch)return;
+  fetch('version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+    if(d&&d.sha256&&/^[0-9a-f]{64}$/i.test(d.sha256)){v.textContent=d.sha256.toUpperCase();box.hidden=false;}
+  }).catch(function(){});
+});
