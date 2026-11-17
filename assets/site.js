@@ -42,3 +42,15 @@ document.addEventListener('DOMContentLoaded',function(){
     if(d&&d.sha256&&/^[0-9a-f]{64}$/i.test(d.sha256)){v.textContent=d.sha256.toUpperCase();box.hidden=false;}
   }).catch(function(){});
 });
+
+/* Comprar Pro: resalta la nota y permite copiar el correo */
+document.addEventListener('DOMContentLoaded',function(){
+  var b=document.getElementById('buyPro'),n=document.getElementById('buyNote'),c=document.getElementById('copyMail');
+  if(b&&n)b.addEventListener('click',function(e){e.preventDefault();n.scrollIntoView({behavior:'smooth',block:'center'});n.classList.add('hl');setTimeout(function(){n.classList.remove('hl')},2500);});
+  if(c)c.addEventListener('click',function(){
+    var m='choribeta6@gmail.com',es=document.documentElement.getAttribute('data-lang')==='es';
+    function ok(){c.textContent=es?'¡Copiado!':'Copied!';}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(m).then(ok,function(){window.prompt(es?'Copia el correo:':'Copy the email:',m);});}
+    else window.prompt(es?'Copia el correo:':'Copy the email:',m);
+  });
+});

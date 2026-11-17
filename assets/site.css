@@ -79,3 +79,5 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
 .faq-g summary{cursor:pointer;font-weight:700}.faq-g details[open] summary{color:var(--cyan)}.faq-g details p{margin:8px 0 0}
 .rel{margin-top:30px}.rcard{text-decoration:none;color:var(--txt);display:block}.rcard .more{display:inline-block;margin-top:10px;color:var(--cyan);font-size:14px;font-weight:700}
 .disc{font-size:13px;color:var(--muted)!important;border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
+
+.buy-note{transition:.3s;border-radius:10px;padding:10px 12px}.buy-note.hl{background:#2a141c;box-shadow:0 0 0 1px var(--red),0 0 18px rgba(255,59,78,.35)}
