@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Optimizar TCP/IP en Windows para juegos: Nagle, TcpAckFrequency, Network Throttling y más | PingTcpTools</title>
+<meta name="description" content="Qué ajustes TCP/IP de Windows afectan a los juegos: algoritmo de Nagle (TCPNoDelay), TcpAckFrequency, NetworkThrottlingIndex, proveedor de congestión, Teredo, NetBIOS y LLMNR.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/optimizar-tcp-ip-windows.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Optimizar TCP/IP en Windows para juegos: Nagle, TcpAckFrequency, Network Throttling y más | PingTcpTools"><meta property="og:description" content="Qué ajustes TCP/IP de Windows afectan a los juegos: algoritmo de Nagle (TCPNoDelay), TcpAckFrequency, NetworkThrottlingIndex, proveedor de congestión, Teredo, NetBIOS y LLMNR."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/optimizar-tcp-ip-windows.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Optimizar TCP/IP en Windows para juegos: Nagle, TcpAckFrequency, Network Throttling y más", "description": "Qué ajustes TCP/IP de Windows afectan a los juegos: algoritmo de Nagle (TCPNoDelay), TcpAckFrequency, NetworkThrottlingIndex, proveedor de congestión, Teredo, NetBIOS y LLMNR.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/optimizar-tcp-ip-windows.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Desactivar Nagle baja el ping en Valorant o Fortnite?", "acceptedAnswer": {"@type": "Answer", "text": "No. Esos juegos usan UDP y Nagle solo afecta a TCP. Puede ayudar en juegos y programas que usan TCP."}}, {"@type": "Question", "name": "¿Estos ajustes son peligrosos?", "acceptedAnswer": {"@type": "Answer", "text": "Son cambios del registro y de la configuración de red que Windows admite. Se pueden revertir. Aun así, recomendamos un punto de restauración antes de aplicarlos."}}, {"@type": "Question", "name": "¿Tengo que reiniciar?", "acceptedAnswer": {"@type": "Answer", "text": "Algunos ajustes (como los de interfaz TCP) se aplican al reiniciar el adaptador o el equipo. La app te indica cuándo es necesario."}}, {"@type": "Question", "name": "¿Puedo desactivar Teredo si juego Xbox Game Pass en PC?", "acceptedAnswer": {"@type": "Answer", "text": "No es recomendable: los juegos de Xbox en PC usan Teredo para el multijugador y podrías tener problemas de conexión."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Optimizar TCP/IP en Windows para juegos", "item": "https://choribeta6-code.github.io/PingTcpTools/optimizar-tcp-ip-windows.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Optimizar TCP/IP en Windows para juegos</span></nav>
+<h1>Optimizar TCP/IP en Windows para juegos: Nagle, TcpAckFrequency, Network Throttling y más</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 5 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-tcp.png" alt="Interruptores de red TCP/IP de PingTcpTools con descripción de cada ajuste" loading="lazy" width="1200" height="720"><figcaption>Interruptores de red TCP/IP de PingTcpTools con descripción de cada ajuste.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#tcp-udp">Primero: TCP y UDP</a></li><li><a href="#nagle">Algoritmo de Nagle (TCPNoDelay)</a></li><li><a href="#ack">TcpAckFrequency</a></li><li><a href="#throttling">Network Throttling (NetworkThrottlingIndex)</a></li><li><a href="#congestion">Proveedor de congestión TCP</a></li><li><a href="#timewait">Liberación de puertos (TcpTimedWaitDelay)</a></li><li><a href="#global">Ajustes globales de offload</a></li><li><a href="#legacy">Protocolos antiguos: Teredo, NetBIOS, LLMNR y LMHOSTS</a></li><li><a href="#tabla">Resumen</a></li><li><a href="#con-la-app">Con PingTcpTools</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">Windows está configurado para que las descargas, la web y la oficina funcionen bien. Algunas de sus decisiones, como agrupar paquetes pequeños o retrasar confirmaciones, ahorran ancho de banda pero añaden milisegundos que en un juego sí importan. Esta guía repasa los ajustes TCP/IP más conocidos, explica para qué sirve cada uno y, sobre todo, en qué casos <b>no</b> sirve.</p>
+
+<h2 id="tcp-udp">Primero: TCP y UDP</h2>
+<p>Hay dos protocolos principales para enviar datos:</p>
+<ul>
+<li><b>TCP</b>: garantiza que todo llegue y en orden. Lo usan la web, las descargas, los lanzadores y algunos juegos (muchos MMO, juegos de estrategia, algunos juegos de navegador o de móvil en emulador).</li>
+<li><b>UDP</b>: envía sin esperar confirmaciones. Lo usan la mayoría de shooters y juegos de acción rápida (Valorant, CS2, Fortnite, Apex, Call of Duty, entre otros).</li>
+</ul>
+<p>Esto es clave: <b>los ajustes que solo afectan a TCP no cambian nada en un juego que usa UDP</b>. Desconfía de guías que prometen bajar el ping de cualquier shooter con un ajuste de Nagle.</p>
+
+<h2 id="nagle">Algoritmo de Nagle (TCPNoDelay)</h2>
+<p>El algoritmo de Nagle junta varios paquetes TCP pequeños y los envía juntos para ahorrar ancho de banda. El resultado es que un paquete pequeño (como una acción del juego) puede esperar unos milisegundos antes de salir.</p>
+<p>Activar <b>TCPNoDelay</b> en la interfaz de red le pide a Windows enviar cada paquete al momento. <b>Ayuda</b> en juegos y aplicaciones que usan TCP y envían muchos mensajes pequeños. <b>No afecta</b> a juegos UDP. Muchos juegos TCP ya desactivan Nagle por su cuenta.</p>
+
+<h2 id="ack">TcpAckFrequency</h2>
+<p>Al recibir datos por TCP, Windows normalmente espera para confirmar dos paquetes juntos (acuse de recibo retardado). Con <b>TcpAckFrequency = 1</b>, confirma cada paquete al instante. Esto puede reducir la latencia percibida en juegos TCP, a cambio de algo más de tráfico de confirmaciones. Igual que Nagle, no influye en juegos UDP.</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="throttling">Network Throttling (NetworkThrottlingIndex)</h2>
+<p>Cuando reproduces audio o video, el servicio multimedia de Windows (MMCSS) limita el procesado de paquetes de red que no son multimedia, para que el sonido no se corte. En equipos actuales ese límite rara vez hace falta. Desactivarlo (valor <code>0xFFFFFFFF</code>) quita la restricción, lo que puede ayudar si juegas con música, Discord o un stream abiertos. Es un ajuste de bajo riesgo.</p>
+
+<h2 id="congestion">Proveedor de congestión TCP</h2>
+<p>Es el algoritmo que decide a qué velocidad enviar datos por TCP cuando la red se satura. Windows 10 y 11 usan normalmente <b>CUBIC</b>; también existen CTCP, DCTCP y NewReno. Afecta sobre todo a descargas y subidas TCP, no a la latencia de los juegos UDP. Salvo que sepas lo que buscas, el valor por defecto es buena opción.</p>
+
+<h2 id="timewait">Liberación de puertos (TcpTimedWaitDelay)</h2>
+<p>Cuando una conexión TCP se cierra, Windows mantiene el puerto reservado un tiempo (hasta 120 segundos). Reducirlo a 30 segundos libera antes los puertos, algo útil si tienes muchas conexiones (lanzadores, navegador con muchas pestañas, torrents). No baja el ping, pero evita problemas de agotamiento de puertos.</p>
+
+<h2 id="global">Ajustes globales de offload</h2>
+<p>Windows tiene ajustes globales que complementan los de la tarjeta de red: <b>Packet Coalescing Filter</b> (agrupa paquetes recibidos para ahorrar energía; desactivarlo puede reducir la latencia en algunos equipos), RSC global y el antiguo <b>TCP Chimney</b> (obsoleto; conviene dejarlo desactivado). Los ajustes de la propia tarjeta se explican en la <a href="ajustes-tarjeta-de-red-gaming.html">guía de la tarjeta de red</a>.</p>
+
+<h2 id="legacy">Protocolos antiguos: Teredo, NetBIOS, LLMNR y LMHOSTS</h2>
+<ul>
+<li><b>Teredo</b> es un túnel IPv6 sobre IPv4. Desactivarlo reduce tráfico innecesario, pero <b>los juegos de Xbox en PC (Game Pass, Forza, Halo, Sea of Thieves) lo usan para el multijugador</b>. Si juegas esos títulos, déjalo activado.</li>
+<li><b>NetBIOS sobre TCP/IP</b> y el servicio asociado son protocolos antiguos para ver equipos por nombre en redes locales. Apagarlos reduce tráfico de red local y superficie de ataque. Podrías dejar de ver equipos antiguos por nombre en tu red.</li>
+<li><b>LLMNR</b> es otro protocolo antiguo de nombres en red local que puede exponer el equipo en redes públicas. Desactivarlo no afecta al DNS ni a internet.</li>
+<li><b>LMHOSTS</b>: un archivo de nombres que casi nadie usa hoy.</li>
+</ul>
+<p>Estos cambios aportan más a la limpieza y seguridad de la red que al ping.</p>
+
+<h2 id="tabla">Resumen</h2>
+<table>
+<tr><th>Ajuste</th><th>Afecta a</th><th>Beneficio esperado</th></tr>
+<tr><td>TCPNoDelay (Nagle)</td><td>Juegos y apps TCP</td><td>Menos espera en paquetes pequeños</td></tr>
+<tr><td>TcpAckFrequency</td><td>Juegos y apps TCP</td><td>Confirmaciones inmediatas</td></tr>
+<tr><td>Network Throttling</td><td>Todo el tráfico con audio/video abierto</td><td>Quita un límite innecesario</td></tr>
+<tr><td>TcpTimedWaitDelay</td><td>Muchas conexiones TCP</td><td>Puertos libres antes</td></tr>
+<tr><td>Packet Coalescing</td><td>Recepción en general</td><td>Puede reducir latencia</td></tr>
+<tr><td>Teredo / NetBIOS / LLMNR</td><td>Red local</td><td>Menos tráfico y exposición</td></tr>
+</table>
+
+<h2 id="con-la-app">Con PingTcpTools</h2>
+<p>Todos estos ajustes están en la sección de interruptores de red: cada uno con su explicación, un clic para activarlo y otro para revertirlo. Los perfiles Conservador, Medio y Extremo aplican los más adecuados de forma automática, y la app guarda los valores originales para restaurarlos.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Desactivar Nagle baja el ping en Valorant o Fortnite?</summary><p>No. Esos juegos usan UDP y Nagle solo afecta a TCP. Puede ayudar en juegos y programas que usan TCP.</p></details><details><summary>¿Estos ajustes son peligrosos?</summary><p>Son cambios del registro y de la configuración de red que Windows admite. Se pueden revertir. Aun así, recomendamos un punto de restauración antes de aplicarlos.</p></details><details><summary>¿Tengo que reiniciar?</summary><p>Algunos ajustes (como los de interfaz TCP) se aplican al reiniciar el adaptador o el equipo. La app te indica cuándo es necesario.</p></details><details><summary>¿Puedo desactivar Teredo si juego Xbox Game Pass en PC?</summary><p>No es recomendable: los juegos de Xbox en PC usan Teredo para el multijugador y podrías tener problemas de conexión.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="ajustes-tarjeta-de-red-gaming.html"><h3>Ajustes de la tarjeta de red para gaming</h3><p>Cada propiedad avanzada del adaptador explicada: qué hace, cuándo cambiarla y qué ganas o pierdes.</p></a><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="como-cambiar-el-mtu-windows.html"><h3>MTU: cómo encontrarlo y cambiarlo</h3><p>Qué es el MTU, cómo calcular el valor correcto de tu conexión y cómo cambiarlo sin romper nada.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

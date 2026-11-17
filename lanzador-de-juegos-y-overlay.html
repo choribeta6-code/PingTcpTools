@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lanzador de juegos y overlay de FPS: cómo medir FPS, CPU, GPU, RAM y ping mientras juegas | PingTcpTools</title>
+<meta name="description" content="Cómo lanzar tus juegos con prioridad alta y RAM liberada, y cómo ver FPS reales, CPU, GPU, RAM y ping en un overlay. Qué es PresentMon y cómo interpretar las métricas.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/lanzador-de-juegos-y-overlay.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Lanzador de juegos y overlay de FPS: cómo medir FPS, CPU, GPU, RAM y ping mientras juegas | PingTcpTools"><meta property="og:description" content="Cómo lanzar tus juegos con prioridad alta y RAM liberada, y cómo ver FPS reales, CPU, GPU, RAM y ping en un overlay. Qué es PresentMon y cómo interpretar las métricas."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/lanzador-de-juegos-y-overlay.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-booster.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Lanzador de juegos y overlay de FPS: cómo medir FPS, CPU, GPU, RAM y ping mientras juegas", "description": "Cómo lanzar tus juegos con prioridad alta y RAM liberada, y cómo ver FPS reales, CPU, GPU, RAM y ping en un overlay. Qué es PresentMon y cómo interpretar las métricas.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-booster.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/lanzador-de-juegos-y-overlay.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿El overlay funciona en pantalla completa exclusiva?", "acceptedAnswer": {"@type": "Answer", "text": "El overlay está pensado para modo ventana sin bordes. En pantalla completa exclusiva puede no verse."}}, {"@type": "Question", "name": "¿PresentMon es seguro?", "acceptedAnswer": {"@type": "Answer", "text": "Es una herramienta gratuita y de código abierto de Intel. Descárgala solo desde su repositorio oficial."}}, {"@type": "Question", "name": "¿Usar prioridad alta puede causar problemas?", "acceptedAnswer": {"@type": "Answer", "text": "En general no. En equipos muy justos, otros programas abiertos (como el chat de voz) pueden ir algo más lentos mientras juegas."}}, {"@type": "Question", "name": "¿El overlay puede activar el antitrampas?", "acceptedAnswer": {"@type": "Answer", "text": "No inyecta código en el juego: es una ventana aparte encima de la pantalla. Aun así, consulta las reglas de tu juego si tienes dudas."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Lanzador de juegos y overlay de FPS", "item": "https://choribeta6-code.github.io/PingTcpTools/lanzador-de-juegos-y-overlay.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Lanzador de juegos y overlay de FPS</span></nav>
+<h1>Lanzador de juegos y overlay de FPS: cómo medir FPS, CPU, GPU, RAM y ping mientras juegas</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 3 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-booster.png" alt="Lanzador de juegos de PingTcpTools con opciones de RAM, prioridad y overlay" loading="lazy" width="1200" height="720"><figcaption>Lanzador de juegos de PingTcpTools con opciones de RAM, prioridad y overlay.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#lanzador">El lanzador de juegos</a></li><li><a href="#overlay">El overlay (Pro)</a></li><li><a href="#presentmon">FPS reales con PresentMon</a></li><li><a href="#interpretar">Cómo interpretar las métricas</a></li><li><a href="#metodo">Método para comparar ajustes</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">Optimizar sin medir es adivinar. Para saber si un ajuste te da FPS o te baja el ping, necesitas ver los números <b>mientras juegas</b>. El lanzador y el overlay de PingTcpTools sirven para eso: preparar el equipo al abrir el juego y mostrar en pantalla las métricas que importan.</p>
+
+<h2 id="lanzador">El lanzador de juegos</h2>
+<p>Agrega tus juegos manualmente o búscalos en tu biblioteca de Steam. Al lanzarlos desde la app, puedes activar:</p>
+<ul>
+<li><b>Limpiar RAM al iniciar</b>: libera memoria en caché antes de abrir el juego. Ayuda en equipos con poca RAM (8 GB o menos) o cuando llevas muchas horas con el navegador abierto. Con RAM de sobra, la diferencia es mínima.</li>
+<li><b>Prioridad alta al juego</b>: Windows da preferencia al proceso del juego frente a programas en segundo plano. Suele mejorar la estabilidad cuando hay otras tareas en marcha.</li>
+<li><b>Mostrar el overlay al iniciar</b>.</li>
+</ul>
+<p>La versión gratuita permite 3 juegos en el lanzador; Pro, ilimitados.</p>
+
+<h2 id="overlay">El overlay (Pro)</h2>
+<p>Una pequeña ventana sobre el juego muestra:</p>
+<ul>
+<li><b>FPS</b>: fotogramas por segundo reales del juego en primer plano.</li>
+<li><b>CPU</b>: uso del procesador y temperatura si está disponible.</li>
+<li><b>GPU</b>: uso de la tarjeta gráfica.</li>
+<li><b>RAM</b>: memoria en uso.</li>
+<li><b>Ping</b>: latencia actual.</li>
+</ul>
+<p>Se ve en juegos en modo <b>ventana sin bordes</b> (borderless), que hoy ofrecen casi todos los juegos. Puedes elegir en qué esquina aparece.</p>
+
+<h2 id="presentmon">FPS reales con PresentMon</h2>
+<p>Para medir los FPS reales, la app usa <b>PresentMon</b>, una herramienta gratuita y de código abierto creada por Intel que registra cada fotograma que el juego presenta en pantalla. Es el mismo tipo de medición que usan los análisis profesionales. Para activarla, descarga PresentMon desde su repositorio oficial de GitHub y copia el archivo <code>PresentMon.exe</code> en la carpeta de PingTcpTools. La app lo detecta automáticamente.</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="interpretar">Cómo interpretar las métricas</h2>
+<table>
+<tr><th>Lo que ves</th><th>Qué suele significar</th></tr>
+<tr><td>GPU al 95–100 %</td><td>La tarjeta gráfica es el límite. Baja la calidad gráfica o la resolución para ganar FPS.</td></tr>
+<tr><td>GPU baja y CPU alta (o un núcleo al máximo)</td><td>El procesador es el límite. Cierra programas de fondo, usa el plan de alto rendimiento y la prioridad alta.</td></tr>
+<tr><td>FPS que caen de golpe</td><td>Tirones: revisa temperaturas, escaneos del antivirus o descargas en segundo plano.</td></tr>
+<tr><td>RAM cerca del total</td><td>Falta memoria: cierra el navegador o usa la limpieza al iniciar.</td></tr>
+<tr><td>Ping que sube y baja</td><td>Inestabilidad de red: ver <a href="ping-jitter-perdida-de-paquetes.html">jitter y pérdida de paquetes</a>.</td></tr>
+</table>
+
+<h2 id="metodo">Método para comparar ajustes</h2>
+<ol>
+<li>Elige una escena repetible del juego (un mapa de práctica o un benchmark integrado).</li>
+<li>Juega 2–3 minutos con el overlay activo y anota FPS medio, FPS más bajo y ping.</li>
+<li>Aplica un perfil o un grupo de ajustes del <a href="aumentar-fps-windows.html">Booster de FPS</a>.</li>
+<li>Repite la misma escena y compara. Quédate con lo que mejora y revierte lo que no.</li>
+</ol>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿El overlay funciona en pantalla completa exclusiva?</summary><p>El overlay está pensado para modo ventana sin bordes. En pantalla completa exclusiva puede no verse.</p></details><details><summary>¿PresentMon es seguro?</summary><p>Es una herramienta gratuita y de código abierto de Intel. Descárgala solo desde su repositorio oficial.</p></details><details><summary>¿Usar prioridad alta puede causar problemas?</summary><p>En general no. En equipos muy justos, otros programas abiertos (como el chat de voz) pueden ir algo más lentos mientras juegas.</p></details><details><summary>¿El overlay puede activar el antitrampas?</summary><p>No inyecta código en el juego: es una ventana aparte encima de la pantalla. Aun así, consulta las reglas de tu juego si tienes dudas.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="aumentar-fps-windows.html"><h3>Cómo aumentar los FPS en Windows</h3><p>Planes de energía, Modo Juego, Defender, memoria y virtualización: qué ajustes de Windows dan FPS y cuáles no.</p></a><a class="card rcard" href="ping-jitter-perdida-de-paquetes.html"><h3>Ping, jitter, pérdida de paquetes y tracert</h3><p>Cómo medir latencia, jitter y pérdida de paquetes, y cómo leer un tracert para saber de quién es la culpa.</p></a><a class="card rcard" href="perfiles-de-optimizacion.html"><h3>Perfiles de optimización, restauración y guardián</h3><p>Cómo usar la app con seguridad: qué hace cada perfil, cómo medir el antes y después y cómo deshacerlo todo.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

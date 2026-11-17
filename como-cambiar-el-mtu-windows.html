@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cómo encontrar y cambiar el MTU en Windows 10 y 11 (guía paso a paso) | PingTcpTools</title>
+<meta name="description" content="Qué es el MTU, cómo calcular el MTU correcto de tu conexión con ping, cómo cambiarlo en Windows 10 y 11 con netsh y cómo volver al valor original.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/como-cambiar-el-mtu-windows.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Cómo encontrar y cambiar el MTU en Windows 10 y 11 (guía paso a paso) | PingTcpTools"><meta property="og:description" content="Qué es el MTU, cómo calcular el MTU correcto de tu conexión con ping, cómo cambiarlo en Windows 10 y 11 con netsh y cómo volver al valor original."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/como-cambiar-el-mtu-windows.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cómo encontrar y cambiar el MTU en Windows 10 y 11 (guía paso a paso)", "description": "Qué es el MTU, cómo calcular el MTU correcto de tu conexión con ping, cómo cambiarlo en Windows 10 y 11 con netsh y cómo volver al valor original.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/como-cambiar-el-mtu-windows.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cuál es el mejor MTU para jugar?", "acceptedAnswer": {"@type": "Answer", "text": "El más alto que tu conexión acepte sin fragmentar, normalmente 1500 (o 1492 en PPPoE). No existe un «MTU gaming» universal."}}, {"@type": "Question", "name": "¿Bajar el MTU reduce el ping?", "acceptedAnswer": {"@type": "Answer", "text": "No. Un MTU más bajo no hace que los paquetes viajen más rápido. Solo corrige problemas cuando el valor actual es demasiado alto para tu conexión."}}, {"@type": "Question", "name": "¿Tengo que cambiar también el MTU del router?", "acceptedAnswer": {"@type": "Answer", "text": "Normalmente no. Si usas PPPoE, el router ya suele usar 1492. Solo cámbialo si tu proveedor lo indica."}}, {"@type": "Question", "name": "¿Qué pasa si pongo un MTU incorrecto?", "acceptedAnswer": {"@type": "Answer", "text": "Algunas páginas o juegos pueden dejar de cargar. Vuelve al valor anterior con netsh o con «Restaurar originales» en la app."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "MTU: cómo encontrarlo y cambiarlo", "item": "https://choribeta6-code.github.io/PingTcpTools/como-cambiar-el-mtu-windows.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>MTU: cómo encontrarlo y cambiarlo</span></nav>
+<h1>Cómo encontrar y cambiar el MTU en Windows 10 y 11 (guía paso a paso)</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 3 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-tcp.png" alt="Herramientas de red de PingTcpTools con detección de MTU óptimo por adaptador" loading="lazy" width="1200" height="720"><figcaption>Herramientas de red de PingTcpTools con detección de MTU óptimo por adaptador.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#que-es">Qué es el MTU</a></li><li><a href="#por-que">Por qué importa</a></li><li><a href="#calcular">Cómo calcular tu MTU correcto</a></li><li><a href="#cambiar">Cómo cambiar el MTU en Windows</a></li><li><a href="#errores">Errores comunes</a></li><li><a href="#con-la-app">Con PingTcpTools</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">El MTU es uno de los ajustes de red más mencionados en foros de gaming y también uno de los más malinterpretados. Bien configurado evita fragmentación y desconexiones raras; mal configurado puede hacer que algunas páginas o juegos no carguen. Aquí aprenderás qué es, cómo encontrar el valor correcto para tu conexión y cómo cambiarlo con seguridad.</p>
+
+<h2 id="que-es">Qué es el MTU</h2>
+<p>El <b>MTU</b> (Maximum Transmission Unit) es el tamaño máximo, en bytes, de un paquete que tu conexión puede enviar sin dividirlo. En redes Ethernet el estándar es <b>1500 bytes</b>. Algunas conexiones necesitan un valor menor porque añaden cabeceras propias:</p>
+<table>
+<tr><th>Tipo de conexión</th><th>MTU habitual</th></tr>
+<tr><td>Ethernet / fibra con IP directa</td><td>1500</td></tr>
+<tr><td>PPPoE (algunas conexiones de fibra y DSL)</td><td>1492</td></tr>
+<tr><td>VPN (según el protocolo)</td><td>1280–1420</td></tr>
+<tr><td>Internet móvil / módem 4G-5G</td><td>1400–1500</td></tr>
+</table>
+
+<h2 id="por-que">Por qué importa</h2>
+<p>Si tu PC envía paquetes más grandes de lo que la conexión acepta, en algún punto del camino deben fragmentarse o se descartan. Eso puede causar:</p>
+<ul>
+<li>Páginas que cargan a medias o se quedan «pensando».</li>
+<li>Desconexiones o fallos al iniciar sesión en algunos juegos.</li>
+<li>Pequeños retrasos por fragmentación.</li>
+</ul>
+<p>Es importante ser realistas: en la mayoría de las conexiones el MTU ya es correcto y cambiarlo <b>no baja el ping</b>. Vale la pena comprobarlo, sobre todo si usas PPPoE, VPN o tienes síntomas como los anteriores.</p>
+
+<h2 id="calcular">Cómo calcular tu MTU correcto</h2>
+<p>Se hace enviando pings con la opción «no fragmentar» y un tamaño cada vez mayor:</p>
+<ol>
+<li>Abre el <b>Símbolo del sistema</b>.</li>
+<li>Ejecuta <code>ping 8.8.8.8 -f -l 1472</code>. La opción <code>-f</code> prohíbe fragmentar y <code>-l</code> indica el tamaño de los datos.</li>
+<li>Si la respuesta dice <i>«Es necesario fragmentar el paquete»</i>, baja el número de 10 en 10 (1462, 1452…) hasta que responda normal.</li>
+<li>Luego sube de 1 en 1 hasta encontrar el número más alto que funciona.</li>
+<li>Suma <b>28</b> a ese número (20 bytes de cabecera IP + 8 de ICMP). El resultado es tu MTU. Ejemplo: 1472 + 28 = <b>1500</b>.</li>
+</ol>
+<p>PingTcpTools hace esta búsqueda automáticamente para cada adaptador y te muestra el MTU óptimo junto al valor actual.</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="cambiar">Cómo cambiar el MTU en Windows</h2>
+<p>Abre el Símbolo del sistema <b>como administrador</b>.</p>
+<h3>1. Ver el MTU actual y el nombre del adaptador</h3>
+<p><code>netsh interface ipv4 show subinterfaces</code></p>
+<p>Verás una lista con el MTU y el nombre de cada interfaz, por ejemplo «Ethernet» o «Wi-Fi».</p>
+<h3>2. Cambiarlo</h3>
+<p><code>netsh interface ipv4 set subinterface "Ethernet" mtu=1492 store=persistent</code></p>
+<p>Sustituye «Ethernet» por el nombre de tu adaptador y 1492 por el valor que calculaste. <code>store=persistent</code> hace que se mantenga al reiniciar.</p>
+<h3>3. Volver al valor original</h3>
+<p>Repite el comando con el valor anterior (normalmente 1500).</p>
+
+<h2 id="errores">Errores comunes</h2>
+<ul>
+<li><b>Poner un MTU muy bajo «para bajar el ping»</b>: no lo baja y aumenta la cantidad de paquetes necesarios para el mismo dato.</li>
+<li><b>Activar Jumbo Frames</b> (9000 bytes) para internet: solo sirven en redes locales donde todos los equipos lo soportan. Para jugar online, déjalo en 1514 (equivalente a MTU 1500).</li>
+<li><b>Calcular el MTU con la VPN activada</b> y aplicarlo sin VPN, o al revés.</li>
+</ul>
+
+<h2 id="con-la-app">Con PingTcpTools</h2>
+<p>La app detecta el MTU óptimo de tu conexión, lo aplica al adaptador que elijas, guarda el valor anterior y te permite restaurarlo con un clic. Con la versión Pro, el guardián vuelve a aplicarlo si Windows o un controlador lo cambian.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Cuál es el mejor MTU para jugar?</summary><p>El más alto que tu conexión acepte sin fragmentar, normalmente 1500 (o 1492 en PPPoE). No existe un «MTU gaming» universal.</p></details><details><summary>¿Bajar el MTU reduce el ping?</summary><p>No. Un MTU más bajo no hace que los paquetes viajen más rápido. Solo corrige problemas cuando el valor actual es demasiado alto para tu conexión.</p></details><details><summary>¿Tengo que cambiar también el MTU del router?</summary><p>Normalmente no. Si usas PPPoE, el router ya suele usar 1492. Solo cámbialo si tu proveedor lo indica.</p></details><details><summary>¿Qué pasa si pongo un MTU incorrecto?</summary><p>Algunas páginas o juegos pueden dejar de cargar. Vuelve al valor anterior con netsh o con «Restaurar originales» en la app.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="optimizar-tcp-ip-windows.html"><h3>Optimizar TCP/IP en Windows para juegos</h3><p>Nagle, TcpAckFrequency, Network Throttling y otros ajustes de Windows: cuáles ayudan, a qué juegos y por qué.</p></a><a class="card rcard" href="ping-jitter-perdida-de-paquetes.html"><h3>Ping, jitter, pérdida de paquetes y tracert</h3><p>Cómo medir latencia, jitter y pérdida de paquetes, y cómo leer un tracert para saber de quién es la culpa.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

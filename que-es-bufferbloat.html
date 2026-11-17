@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qué es el bufferbloat y cómo reducirlo para jugar sin picos de ping | PingTcpTools</title>
+<meta name="description" content="Qué es el bufferbloat, por qué el ping se dispara cuando alguien descarga o ve videos, cómo medirlo con nota de A+ a F y cómo solucionarlo con SQM y QoS en el router.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/que-es-bufferbloat.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Qué es el bufferbloat y cómo reducirlo para jugar sin picos de ping | PingTcpTools"><meta property="og:description" content="Qué es el bufferbloat, por qué el ping se dispara cuando alguien descarga o ve videos, cómo medirlo con nota de A+ a F y cómo solucionarlo con SQM y QoS en el router."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/que-es-bufferbloat.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-bufferbloat.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Qué es el bufferbloat y cómo reducirlo para jugar sin picos de ping", "description": "Qué es el bufferbloat, por qué el ping se dispara cuando alguien descarga o ve videos, cómo medirlo con nota de A+ a F y cómo solucionarlo con SQM y QoS en el router.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-bufferbloat.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/que-es-bufferbloat.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Contratar más velocidad soluciona el bufferbloat?", "acceptedAnswer": {"@type": "Answer", "text": "No siempre. Con más velocidad la cola se llena con menos frecuencia, pero si el router tiene buffers excesivos el problema vuelve en cuanto se satura. La solución real es SQM."}}, {"@type": "Question", "name": "¿Qué nota de bufferbloat necesito para jugar?", "acceptedAnswer": {"@type": "Answer", "text": "A+ o A es ideal. Con B se puede jugar, pero notarás picos si alguien usa la red. C o peor afecta claramente a juegos competitivos."}}, {"@type": "Question", "name": "¿La prueba consume muchos datos?", "acceptedAnswer": {"@type": "Answer", "text": "Satura la conexión unos segundos en cada dirección. Si tienes un plan con datos limitados (por ejemplo, internet móvil), tenlo en cuenta."}}, {"@type": "Question", "name": "¿Por qué mi nota cambia según la hora?", "acceptedAnswer": {"@type": "Answer", "text": "Porque la congestión de tu proveedor y el uso de tu red varían. Mide en distintos momentos para tener una idea real."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Bufferbloat: qué es y cómo reducirlo", "item": "https://choribeta6-code.github.io/PingTcpTools/que-es-bufferbloat.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Bufferbloat: qué es y cómo reducirlo</span></nav>
+<h1>Qué es el bufferbloat y cómo reducirlo para jugar sin picos de ping</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 4 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-bufferbloat.png" alt="Prueba de bufferbloat de PingTcpTools con gráfica de ping en reposo y bajo carga y nota de A+ a F" loading="lazy" width="1200" height="720"><figcaption>Prueba de bufferbloat de PingTcpTools con gráfica de ping en reposo y bajo carga y nota de A+ a F.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#que-es">Qué es el bufferbloat</a></li><li><a href="#sintomas">Síntomas típicos</a></li><li><a href="#medir">Cómo medir el bufferbloat</a></li><li><a href="#solucion">Cómo solucionarlo</a></li><li><a href="#windows">¿Se arregla desde Windows?</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">Tu ping está en 25 ms, pero en cuanto tu hermano empieza a ver una serie o Steam descarga una actualización, sube a 300 ms y la partida se vuelve injugable. No es casualidad ni «internet lento»: se llama <b>bufferbloat</b>, es uno de los problemas de latencia más comunes en casa y casi nadie lo mide.</p>
+
+<h2 id="que-es">Qué es el bufferbloat</h2>
+<p>Los routers y módems tienen una memoria (buffer) donde guardan paquetes cuando llegan más datos de los que pueden enviar. Un buffer pequeño es útil; uno <b>demasiado grande</b> es un problema: cuando la conexión se satura, cientos de paquetes se quedan en cola, y tu paquete del juego tiene que esperar detrás de todos ellos.</p>
+<p>Imagina un peaje con una sola caseta. Si la fila es corta, pasas rápido. Si hay 300 autos esperando, da igual lo rápido que sea tu auto: esperarás. Eso es exactamente lo que le pasa a tu ping cuando la conexión está llena.</p>
+
+<h2 id="sintomas">Síntomas típicos</h2>
+<ul>
+<li>El ping es bueno cuando estás solo, pero sube mucho cuando alguien usa la red.</li>
+<li>Las videollamadas se cortan o se congelan cuando subes archivos.</li>
+<li>Picos de lag al empezar una descarga en Steam, Epic o la consola.</li>
+<li>Los test de velocidad dan buenos Mbps, pero jugar se siente mal.</li>
+</ul>
+<p>El bufferbloat no tiene que ver con tu velocidad contratada: puedes tener 500 Mbps y sufrirlo igual.</p>
+
+<h2 id="medir">Cómo medir el bufferbloat</h2>
+<h3>Manualmente</h3>
+<ol>
+<li>Abre el Símbolo del sistema y ejecuta <code>ping 8.8.8.8 -t</code>. Anota el ping en reposo.</li>
+<li>Sin cerrar esa ventana, inicia una descarga grande (por ejemplo, un juego en Steam) o un test de velocidad.</li>
+<li>Observa el ping durante la descarga. Luego prueba con una subida (un archivo grande a la nube).</li>
+<li>La diferencia entre el ping en reposo y el ping bajo carga es tu bufferbloat.</li>
+</ol>
+<h3>Con PingTcpTools</h3>
+<p>La prueba de bufferbloat de la app hace esto automáticamente: mide el ping en reposo, satura la descarga y luego la subida, dibuja una gráfica en vivo y te da una nota según cuánto aumenta la latencia:</p>
+<table>
+<tr><th>Nota</th><th>Aumento de ping bajo carga</th><th>Qué significa</th></tr>
+<tr><td>A+</td><td>menos de 5 ms</td><td>Excelente. Puedes jugar aunque la red esté ocupada.</td></tr>
+<tr><td>A</td><td>5–30 ms</td><td>Muy bueno.</td></tr>
+<tr><td>B</td><td>30–60 ms</td><td>Aceptable, se nota en shooters.</td></tr>
+<tr><td>C</td><td>60–200 ms</td><td>Problema claro con la red ocupada.</td></tr>
+<tr><td>D</td><td>200–400 ms</td><td>Muy malo.</td></tr>
+<tr><td>F</td><td>más de 400 ms</td><td>Injugable cuando alguien usa la red.</td></tr>
+</table>
+<p>Te dice también si el problema está en la descarga o en la subida, lo que ayuda a elegir la solución.</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="solucion">Cómo solucionarlo</h2>
+<h3>1. SQM o Smart Queue en el router (la solución real)</h3>
+<p>Los algoritmos modernos de gestión de colas, como <b>fq_codel</b> o <b>CAKE</b>, mantienen las colas cortas y reparten la conexión de forma justa. Muchos routers los incluyen con nombres como «Smart Queue», «SQM», «QoS adaptativa» o «Gestión de ancho de banda». Al activarlo, configura un límite de alrededor del <b>85–95 % de tu velocidad real</b> de bajada y de subida: así la cola se forma en el router (que la gestiona bien) y no en el módem del proveedor.</p>
+<h3>2. QoS por prioridad</h3>
+<p>Si tu router no tiene SQM, la QoS clásica permite priorizar tu PC o tu consola. Ayuda menos que SQM, pero algo mejora.</p>
+<h3>3. Limitar descargas</h3>
+<p>Steam, Epic, Battle.net, qBittorrent y otros permiten fijar un límite de velocidad. Un límite al 70–80 % de tu conexión evita la saturación.</p>
+<h3>4. Cambiar de router o pedir otro al proveedor</h3>
+<p>Algunos routers de operador no ofrecen ninguna de estas opciones. Puedes pedir un equipo más moderno o poner tu propio router detrás del módem del proveedor, en modo puente.</p>
+<h3>5. Cable en vez de Wi-Fi</h3>
+<p>El Wi-Fi también tiene sus propias colas. Conectar la PC por cable reduce el problema en tu equipo.</p>
+
+<h2 id="windows">¿Se arregla desde Windows?</h2>
+<p>En gran parte, no: el bufferbloat ocurre en el router o el módem, no en tu PC. Los ajustes de Windows y de la tarjeta de red mejoran otras causas de latencia, pero no vacían la cola del router. Por eso es tan importante medirlo: si tu nota es C, D o F, la mejora más grande que puedes conseguir está en el router, y vale la pena saberlo antes de tocar nada más.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Contratar más velocidad soluciona el bufferbloat?</summary><p>No siempre. Con más velocidad la cola se llena con menos frecuencia, pero si el router tiene buffers excesivos el problema vuelve en cuanto se satura. La solución real es SQM.</p></details><details><summary>¿Qué nota de bufferbloat necesito para jugar?</summary><p>A+ o A es ideal. Con B se puede jugar, pero notarás picos si alguien usa la red. C o peor afecta claramente a juegos competitivos.</p></details><details><summary>¿La prueba consume muchos datos?</summary><p>Satura la conexión unos segundos en cada dirección. Si tienes un plan con datos limitados (por ejemplo, internet móvil), tenlo en cuenta.</p></details><details><summary>¿Por qué mi nota cambia según la hora?</summary><p>Porque la congestión de tu proveedor y el uso de tu red varían. Mide en distintos momentos para tener una idea real.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="ping-jitter-perdida-de-paquetes.html"><h3>Ping, jitter, pérdida de paquetes y tracert</h3><p>Cómo medir latencia, jitter y pérdida de paquetes, y cómo leer un tracert para saber de quién es la culpa.</p></a><a class="card rcard" href="mejor-dns-para-jugar.html"><h3>El mejor DNS para jugar</h3><p>Qué hace realmente el DNS, si mejora el ping y cómo encontrar el más rápido desde tu casa.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

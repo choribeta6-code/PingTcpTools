@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ping, jitter y pérdida de paquetes: cómo diagnosticar tu conexión con ping y tracert | PingTcpTools</title>
+<meta name="description" content="Aprende a diagnosticar tu conexión: qué son la latencia, el jitter y la pérdida de paquetes, cómo medirlos con ping y cómo leer un tracert para saber dónde está el problema.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/ping-jitter-perdida-de-paquetes.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Ping, jitter y pérdida de paquetes: cómo diagnosticar tu conexión con ping y tracert | PingTcpTools"><meta property="og:description" content="Aprende a diagnosticar tu conexión: qué son la latencia, el jitter y la pérdida de paquetes, cómo medirlos con ping y cómo leer un tracert para saber dónde está el problema."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/ping-jitter-perdida-de-paquetes.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-panel.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Ping, jitter y pérdida de paquetes: cómo diagnosticar tu conexión con ping y tracert", "description": "Aprende a diagnosticar tu conexión: qué son la latencia, el jitter y la pérdida de paquetes, cómo medirlos con ping y cómo leer un tracert para saber dónde está el problema.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-panel.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/ping-jitter-perdida-de-paquetes.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es más importante, el ping o el jitter?", "acceptedAnswer": {"@type": "Answer", "text": "Ambos. Un ping medio bajo con mucho jitter se juega peor que un ping algo más alto pero estable."}}, {"@type": "Question", "name": "¿Por qué un salto del tracert tiene 200 ms pero el destino solo 40 ms?", "acceptedAnswer": {"@type": "Answer", "text": "Ese router responde a las pruebas con baja prioridad. Si los saltos siguientes son bajos, no hay problema real."}}, {"@type": "Question", "name": "¿Pérdida de paquetes en el router por Wi-Fi es normal?", "acceptedAnswer": {"@type": "Answer", "text": "Un poco puede ocurrir con interferencias, pero lo ideal es 0 %. Por cable debe ser siempre 0 %."}}, {"@type": "Question", "name": "¿Puedo arreglar la pérdida de paquetes con un programa?", "acceptedAnswer": {"@type": "Answer", "text": "Si la pérdida ocurre fuera de tu casa, no: depende del proveedor o del servidor. Si ocurre en tu red local, se soluciona con cable, configuración del router o ajustes de la tarjeta de red."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Ping, jitter, pérdida de paquetes y tracert", "item": "https://choribeta6-code.github.io/PingTcpTools/ping-jitter-perdida-de-paquetes.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Ping, jitter, pérdida de paquetes y tracert</span></nav>
+<h1>Ping, jitter y pérdida de paquetes: cómo diagnosticar tu conexión con ping y tracert</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 4 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-panel.png" alt="Medición de ping y trazado de ruta en PingTcpTools con el salto más lento resaltado" loading="lazy" width="1200" height="720"><figcaption>Medición de ping y trazado de ruta en PingTcpTools con el salto más lento resaltado.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#conceptos">Los tres números que importan</a></li><li><a href="#ping">Cómo medir con ping</a></li><li><a href="#dividir">Divide y vencerás: dónde está el problema</a></li><li><a href="#tracert">Cómo leer un tracert</a></li><li><a href="#soluciones">Qué hacer según el resultado</a></li><li><a href="#proveedor">Cómo reclamar a tu proveedor con pruebas</a></li><li><a href="#con-la-app">Con PingTcpTools</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">«Me va lento» no es un diagnóstico. Antes de cambiar ajustes, llamar al proveedor o comprar un router, necesitas saber <b>qué</b> falla y <b>dónde</b>. Con dos comandos de Windows, ping y tracert, puedes averiguar si el problema está en tu PC, en tu casa, en tu proveedor o en el servidor del juego. Esta guía te enseña a medir y a interpretar los resultados como lo haría un técnico.</p>
+
+<h2 id="conceptos">Los tres números que importan</h2>
+<ul>
+<li><b>Latencia (ping)</b>: el tiempo de ida y vuelta de un paquete, en ms. Determina cuánto tarda en «llegar» tu acción.</li>
+<li><b>Jitter</b>: cuánto varía el ping de un paquete a otro. Un jitter alto se siente como tirones y teletransportes aunque el ping medio sea bueno.</li>
+<li><b>Pérdida de paquetes</b>: porcentaje de paquetes que nunca llegan. Incluso un 1–2 % causa disparos que no registran y desincronización.</li>
+</ul>
+<table>
+<tr><th>Medida</th><th>Bueno</th><th>Regular</th><th>Malo</th></tr>
+<tr><td>Ping</td><td>&lt; 50 ms</td><td>50–100 ms</td><td>&gt; 100 ms</td></tr>
+<tr><td>Jitter</td><td>&lt; 5 ms</td><td>5–20 ms</td><td>&gt; 20 ms</td></tr>
+<tr><td>Pérdida</td><td>0 %</td><td>&lt; 1 %</td><td>≥ 1 %</td></tr>
+</table>
+
+<h2 id="ping">Cómo medir con ping</h2>
+<ol>
+<li>Abre el Símbolo del sistema.</li>
+<li>Ejecuta <code>ping 8.8.8.8 -n 100</code> (100 paquetes dan una muestra fiable).</li>
+<li>Al terminar, mira el resumen: paquetes <b>perdidos</b> y tiempos <b>mínimo, máximo y media</b>.</li>
+</ol>
+<p>Una forma rápida de estimar el jitter: si la diferencia entre el mínimo y el máximo es grande (por ejemplo, 20 ms y 180 ms), tu conexión es inestable.</p>
+
+<h2 id="dividir">Divide y vencerás: dónde está el problema</h2>
+<p>Haz el mismo ping a tres destinos:</p>
+<ol>
+<li><b>Tu router</b> (normalmente <code>ping 192.168.1.1</code>; la puerta de enlace aparece en <code>ipconfig</code>). Por cable debería dar 1 ms o menos y 0 % de pérdida. Si aquí ya hay picos, el problema está <b>en tu casa</b>: Wi-Fi, cable o router.</li>
+<li><b>Un servidor público</b> (<code>8.8.8.8</code> o <code>1.1.1.1</code>). Si tu router va bien pero aquí hay pérdida o picos, el problema suele estar en la conexión con tu <b>proveedor</b>.</li>
+<li><b>El servidor del juego</b>, si conoces su dirección. Si los dos anteriores van bien y este no, el problema está en la ruta hacia ese servidor o en el propio servidor.</li>
+</ol>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="tracert">Cómo leer un tracert</h2>
+<p><code>tracert 8.8.8.8</code> muestra cada «salto» (router) por el que pasan tus paquetes hasta el destino y cuánto tarda cada uno. Para leerlo:</p>
+<ul>
+<li><b>Salto 1</b> es tu router. Debe ser muy bajo.</li>
+<li><b>Saltos 2–4</b> suelen ser tu proveedor.</li>
+<li>Busca el punto donde la latencia <b>sube y se mantiene alta</b> en todos los saltos siguientes: ahí está el tramo lento.</li>
+<li>Un salto intermedio con un tiempo alto, pero cuyos saltos siguientes vuelven a ser bajos, <b>no es un problema</b>: muchos routers responden a estas pruebas con baja prioridad.</li>
+<li>Los asteriscos (<code>*</code>) indican routers que no responden a la prueba. No significa necesariamente pérdida real.</li>
+</ul>
+<p>El trazado de ruta de PingTcpTools hace este análisis por ti: mide cada salto varias veces y resalta el salto donde se añade más latencia.</p>
+
+<h2 id="soluciones">Qué hacer según el resultado</h2>
+<table>
+<tr><th>Dónde aparece el problema</th><th>Qué hacer</th></tr>
+<tr><td>Ya en tu router</td><td>Usa cable, revisa el Wi-Fi, cambia el cable, reinicia o actualiza el router, mide el <a href="que-es-bufferbloat.html">bufferbloat</a>.</td></tr>
+<tr><td>En los primeros saltos del proveedor</td><td>Reinicia el módem; si persiste, contacta al proveedor con capturas del ping y tracert.</td></tr>
+<tr><td>Lejos, en la ruta al servidor</td><td>Prueba otra región del juego; consulta si hay incidencias del servidor.</td></tr>
+<tr><td>Solo en tu PC (otros equipos van bien)</td><td>Revisa controladores y <a href="ajustes-tarjeta-de-red-gaming.html">ajustes de la tarjeta de red</a>, y programas en segundo plano.</td></tr>
+</table>
+
+<h2 id="proveedor">Cómo reclamar a tu proveedor con pruebas</h2>
+<p>Los soporte técnicos responden mejor a datos concretos. Guarda capturas de: un ping de 100 paquetes al router (para demostrar que tu red local está bien), un ping a 8.8.8.8 con pérdida o picos, y un tracert donde se vea el salto donde empieza el problema. Indica fecha y hora y repite la prueba en distintos momentos.</p>
+
+<h2 id="con-la-app">Con PingTcpTools</h2>
+<p>La app reúne estas herramientas en una sola pantalla: ping con gráfica, prueba de <a href="que-es-bufferbloat.html">bufferbloat</a>, detección de <a href="como-cambiar-el-mtu-windows.html">MTU</a> y tracert con el salto más lento marcado. Así sabes si conviene optimizar tu PC, tu red o hablar con tu proveedor.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Qué es más importante, el ping o el jitter?</summary><p>Ambos. Un ping medio bajo con mucho jitter se juega peor que un ping algo más alto pero estable.</p></details><details><summary>¿Por qué un salto del tracert tiene 200 ms pero el destino solo 40 ms?</summary><p>Ese router responde a las pruebas con baja prioridad. Si los saltos siguientes son bajos, no hay problema real.</p></details><details><summary>¿Pérdida de paquetes en el router por Wi-Fi es normal?</summary><p>Un poco puede ocurrir con interferencias, pero lo ideal es 0 %. Por cable debe ser siempre 0 %.</p></details><details><summary>¿Puedo arreglar la pérdida de paquetes con un programa?</summary><p>Si la pérdida ocurre fuera de tu casa, no: depende del proveedor o del servidor. Si ocurre en tu red local, se soluciona con cable, configuración del router o ajustes de la tarjeta de red.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="que-es-bufferbloat.html"><h3>Bufferbloat: qué es y cómo reducirlo</h3><p>Por qué tu ping se dispara cuando alguien descarga o ve videos, cómo medirlo y cómo solucionarlo.</p></a><a class="card rcard" href="mejor-dns-para-jugar.html"><h3>El mejor DNS para jugar</h3><p>Qué hace realmente el DNS, si mejora el ping y cómo encontrar el más rápido desde tu casa.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ajustes de la tarjeta de red para gaming: RSS, offloads, buffers, interrupciones y MSI | PingTcpTools</title>
+<meta name="description" content="Guía de las propiedades avanzadas de la tarjeta de red en Windows: moderación de interrupciones, RSS, LSO, RSC, buffers, Green Ethernet, control de flujo, MSI Mode y afinidad de CPU.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/ajustes-tarjeta-de-red-gaming.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Ajustes de la tarjeta de red para gaming: RSS, offloads, buffers, interrupciones y MSI | PingTcpTools"><meta property="og:description" content="Guía de las propiedades avanzadas de la tarjeta de red en Windows: moderación de interrupciones, RSS, LSO, RSC, buffers, Green Ethernet, control de flujo, MSI Mode y afinidad de CPU."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/ajustes-tarjeta-de-red-gaming.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Ajustes de la tarjeta de red para gaming: RSS, offloads, buffers, interrupciones y MSI", "description": "Guía de las propiedades avanzadas de la tarjeta de red en Windows: moderación de interrupciones, RSS, LSO, RSC, buffers, Green Ethernet, control de flujo, MSI Mode y afinidad de CPU.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-tcp.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/ajustes-tarjeta-de-red-gaming.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Desactivar la moderación de interrupciones aumenta mucho el uso de CPU?", "acceptedAnswer": {"@type": "Answer", "text": "En CPUs de los últimos años el aumento suele ser muy pequeño con el tráfico de un juego. En descargas muy grandes puede notarse algo más."}}, {"@type": "Question", "name": "¿Por qué no veo algunas opciones en mi tarjeta?", "acceptedAnswer": {"@type": "Answer", "text": "Cada fabricante y controlador expone opciones distintas. Actualizar el controlador desde la web del fabricante a veces añade opciones."}}, {"@type": "Question", "name": "¿Estos ajustes sirven para Wi-Fi?", "acceptedAnswer": {"@type": "Answer", "text": "Algunos sí (por ejemplo, el ahorro de energía), pero las tarjetas Wi-Fi exponen menos opciones y el Wi-Fi tiene sus propias fuentes de latencia. El cable sigue siendo lo mejor."}}, {"@type": "Question", "name": "¿Una actualización del controlador borra los ajustes?", "acceptedAnswer": {"@type": "Answer", "text": "A menudo sí. Por eso conviene revisarlos después de actualizar, o usar el guardián de PingTcpTools Pro, que los vuelve a aplicar."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Ajustes de la tarjeta de red para gaming", "item": "https://choribeta6-code.github.io/PingTcpTools/ajustes-tarjeta-de-red-gaming.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Ajustes de la tarjeta de red para gaming</span></nav>
+<h1>Ajustes de la tarjeta de red para gaming: RSS, offloads, buffers, interrupciones y MSI</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 5 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-tcp.png" alt="Pestaña de ajustes avanzados de la tarjeta de red en PingTcpTools con valores recomendados" loading="lazy" width="1200" height="720"><figcaption>Pestaña de ajustes avanzados de la tarjeta de red en PingTcpTools con valores recomendados.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#antes">Antes de empezar</a></li><li><a href="#interrupciones">Moderación de interrupciones (Interrupt Moderation)</a></li><li><a href="#rss">Receive Side Scaling (RSS)</a></li><li><a href="#offloads">Offloads: LSO, RSC, USO y checksums</a></li><li><a href="#buffers">Buffers de recepción y envío</a></li><li><a href="#energia">Ahorro de energía: EEE y Green Ethernet</a></li><li><a href="#flujo">Control de flujo (Flow Control)</a></li><li><a href="#jumbo">Jumbo Frames y VLAN</a></li><li><a href="#msi">MSI Mode e interrupciones</a></li><li><a href="#afinidad">Afinidad de CPU del adaptador</a></li><li><a href="#resumen">Resumen recomendado para jugar</a></li><li><a href="#con-la-app">Con PingTcpTools</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">Si abres el Administrador de dispositivos, entras en las propiedades de tu tarjeta de red y vas a la pestaña «Opciones avanzadas», encontrarás decenas de opciones con nombres como <i>Interrupt Moderation</i>, <i>Large Send Offload</i> o <i>Receive Side Scaling</i>. Vienen configuradas para mover mucho volumen de datos y ahorrar energía, no para la latencia más baja. Esta guía explica qué hace cada una, qué cambiar para jugar y qué precio pagas.</p>
+
+<h2 id="antes">Antes de empezar</h2>
+<ul>
+<li>Las opciones disponibles <b>dependen del fabricante y del controlador</b> (Realtek, Intel, Killer, etc.). No todas las tarjetas tienen todas.</li>
+<li>Al cambiar una propiedad, el adaptador se reinicia y pierdes la conexión unos segundos.</li>
+<li>Instala el controlador más reciente desde la web del fabricante de tu placa o tarjeta, no solo el de Windows Update.</li>
+<li>Anota los valores originales o usa una herramienta que los guarde por ti.</li>
+</ul>
+<p>La regla general: muchos de estos ajustes cambian <b>un poco de uso de CPU por menos latencia</b>. En un PC moderno el coste es mínimo; en equipos muy modestos conviene probar uno por uno.</p>
+
+<h2 id="interrupciones">Moderación de interrupciones (Interrupt Moderation)</h2>
+<p>Cuando llega un paquete, la tarjeta «interrumpe» a la CPU para que lo procese. Con la moderación activada, la tarjeta espera y agrupa varios paquetes en una sola interrupción: menos trabajo para la CPU, pero cada paquete puede esperar algunos microsegundos más.</p>
+<p><b>Para jugar:</b> desactivarla reduce la latencia de procesado y el jitter. Aumenta algo el uso de CPU, normalmente imperceptible. Es uno de los ajustes con más efecto medible en el equipo.</p>
+
+<h2 id="rss">Receive Side Scaling (RSS)</h2>
+<p>RSS reparte el procesado de los paquetes recibidos entre varios núcleos de la CPU, en lugar de cargar todo en uno. Opciones relacionadas: número de colas de recepción, procesador base y máximo, y el perfil de RSS.</p>
+<p><b>Para jugar:</b> mantenlo <b>activado</b>. Puedes elegir qué núcleos usa para apartar el tráfico de red del núcleo principal del juego (ver afinidad, más abajo).</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="offloads">Offloads: LSO, RSC, USO y checksums</h2>
+<ul>
+<li><b>Large Send Offload (LSO v1/v2)</b>: la PC entrega a la tarjeta bloques grandes de datos y la tarjeta los divide. Ahorra CPU al enviar archivos, pero puede añadir retrasos a paquetes pequeños. Para jugar suele desactivarse.</li>
+<li><b>Receive Segment Coalescing (RSC)</b>: junta varios paquetes recibidos en uno más grande antes de entregarlo a Windows. Bueno para descargas, malo para la latencia de paquetes pequeños. Para jugar suele desactivarse.</li>
+<li><b>UDP Segmentation Offload (USO) / UDP RSC</b>: lo mismo para UDP, el protocolo de la mayoría de juegos. Desactivarlo evita agrupamientos.</li>
+<li><b>Checksum offload (IP, TCP, UDP)</b>: la tarjeta calcula los códigos de verificación de los paquetes. No añade latencia apreciable y ahorra CPU, así que lo recomendable es <b>dejarlo activado</b> (Rx y Tx).</li>
+</ul>
+
+<h2 id="buffers">Buffers de recepción y envío</h2>
+<p>Son la memoria de la tarjeta para paquetes en espera. Valores muy bajos pueden provocar pérdida de paquetes si llega una ráfaga; valores muy altos rara vez dan problemas en una PC doméstica. Si ves pérdida de paquetes en tu propia red, subir los buffers de recepción puede ayudar. Para la mayoría, el valor por defecto o uno moderado está bien.</p>
+
+<h2 id="energia">Ahorro de energía: EEE y Green Ethernet</h2>
+<p><b>Energy Efficient Ethernet (EEE)</b>, Green Ethernet, Power Saving Mode y similares ponen el enlace en reposo cuando hay poco tráfico. Al despertar puede haber pequeños retrasos o micro-cortes. En una PC de escritorio para jugar, lo recomendable es <b>desactivarlos</b>. También conviene desactivar «Permitir que el equipo apague este dispositivo para ahorrar energía» y la suspensión selectiva.</p>
+
+<h2 id="flujo">Control de flujo (Flow Control)</h2>
+<p>Permite que la tarjeta o el switch pidan «pausa» cuando se saturan. En redes domésticas puede introducir pausas innecesarias. Desactivarlo es habitual en configuraciones para juegos; si notas pérdida de paquetes en tu red local, vuelve a activarlo.</p>
+
+<h2 id="jumbo">Jumbo Frames y VLAN</h2>
+<p><b>Jumbo Packet</b> solo sirve en redes locales donde todos los equipos lo soportan. Para internet déjalo en <b>1514</b> (desactivado). <b>Priority & VLAN</b> se usa en redes de empresa; en casa no aporta.</p>
+
+<h2 id="msi">MSI Mode e interrupciones</h2>
+<p>Las tarjetas modernas pueden usar <b>Message Signaled Interrupts (MSI)</b> en lugar de interrupciones de línea tradicionales. MSI suele reducir la latencia de las interrupciones y evita compartirlas con otros dispositivos. Muchas tarjetas ya lo usan por defecto; si no, activarlo puede ayudar. También se puede ajustar la prioridad de interrupción del dispositivo. Requiere reiniciar el equipo.</p>
+
+<h2 id="afinidad">Afinidad de CPU del adaptador</h2>
+<p>Permite indicar en qué núcleos se procesan las interrupciones de la tarjeta. Un uso típico es reservar un núcleo que el juego use poco para el tráfico de red. Es un ajuste avanzado: el beneficio depende de la CPU y del juego, y se debe medir.</p>
+
+<h2 id="resumen">Resumen recomendado para jugar</h2>
+<table>
+<tr><th>Ajuste</th><th>Valor sugerido</th><th>Coste</th></tr>
+<tr><td>Interrupt Moderation</td><td>Desactivado</td><td>Algo más de CPU</td></tr>
+<tr><td>RSS</td><td>Activado</td><td>Ninguno</td></tr>
+<tr><td>LSO v1/v2, RSC, USO</td><td>Desactivado</td><td>Algo más de CPU al subir/descargar</td></tr>
+<tr><td>Checksum offload</td><td>Rx y Tx activado</td><td>Ninguno</td></tr>
+<tr><td>EEE / Green Ethernet</td><td>Desactivado</td><td>Un poco más de consumo</td></tr>
+<tr><td>Flow Control</td><td>Desactivado</td><td>Ninguno en casa</td></tr>
+<tr><td>Jumbo Packet</td><td>1514</td><td>Ninguno</td></tr>
+</table>
+
+<h2 id="con-la-app">Con PingTcpTools</h2>
+<p>La pestaña de la tarjeta de red muestra todas las propiedades que expone tu controlador, cada una con su descripción y el valor recomendado. Puedes cambiarlas una por una o dejar que el perfil elegido lo haga. La app guarda el valor original de cada propiedad y «Restaurar originales» los devuelve. La versión Pro incluye todos los ajustes avanzados, MSI Mode y la afinidad de CPU, y el guardián los mantiene aunque una actualización del controlador los reinicie.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Desactivar la moderación de interrupciones aumenta mucho el uso de CPU?</summary><p>En CPUs de los últimos años el aumento suele ser muy pequeño con el tráfico de un juego. En descargas muy grandes puede notarse algo más.</p></details><details><summary>¿Por qué no veo algunas opciones en mi tarjeta?</summary><p>Cada fabricante y controlador expone opciones distintas. Actualizar el controlador desde la web del fabricante a veces añade opciones.</p></details><details><summary>¿Estos ajustes sirven para Wi-Fi?</summary><p>Algunos sí (por ejemplo, el ahorro de energía), pero las tarjetas Wi-Fi exponen menos opciones y el Wi-Fi tiene sus propias fuentes de latencia. El cable sigue siendo lo mejor.</p></details><details><summary>¿Una actualización del controlador borra los ajustes?</summary><p>A menudo sí. Por eso conviene revisarlos después de actualizar, o usar el guardián de PingTcpTools Pro, que los vuelve a aplicar.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="optimizar-tcp-ip-windows.html"><h3>Optimizar TCP/IP en Windows para juegos</h3><p>Nagle, TcpAckFrequency, Network Throttling y otros ajustes de Windows: cuáles ayudan, a qué juegos y por qué.</p></a><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="perfiles-de-optimizacion.html"><h3>Perfiles de optimización, restauración y guardián</h3><p>Cómo usar la app con seguridad: qué hace cada perfil, cómo medir el antes y después y cómo deshacerlo todo.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

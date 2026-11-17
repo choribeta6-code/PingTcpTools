@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía de PingTcpTools: perfiles Conservador, Medio y Extremo, restauración y guardián | PingTcpTools</title>
+<meta name="description" content="Cómo usar PingTcpTools paso a paso: qué aplica cada perfil (Conservador, Medio, Extremo), cómo medir el antes y después, cómo restaurar los valores originales y cómo funciona el guardián.">
+<link rel="canonical" href="https://choribeta6-code.github.io/PingTcpTools/perfiles-de-optimizacion.html">
+<meta property="og:site_name" content="PingTcpTools"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Guía de PingTcpTools: perfiles Conservador, Medio y Extremo, restauración y guardián | PingTcpTools"><meta property="og:description" content="Cómo usar PingTcpTools paso a paso: qué aplica cada perfil (Conservador, Medio, Extremo), cómo medir el antes y después, cómo restaurar los valores originales y cómo funciona el guardián."><meta property="og:url" content="https://choribeta6-code.github.io/PingTcpTools/perfiles-de-optimizacion.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+<meta property="og:type" content="article"><meta property="og:image" content="https://choribeta6-code.github.io/PingTcpTools/assets/shot-panel.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Guía de PingTcpTools: perfiles Conservador, Medio y Extremo, restauración y guardián", "description": "Cómo usar PingTcpTools paso a paso: qué aplica cada perfil (Conservador, Medio, Extremo), cómo medir el antes y después, cómo restaurar los valores originales y cómo funciona el guardián.", "inLanguage": "es", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Greidimar Calderon"}, "publisher": {"@type": "Organization", "name": "PingTcpTools"}, "image": "https://choribeta6-code.github.io/PingTcpTools/assets/shot-panel.png", "mainEntityOfPage": "https://choribeta6-code.github.io/PingTcpTools/perfiles-de-optimizacion.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué perfil debo usar?", "acceptedAnswer": {"@type": "Answer", "text": "Empieza con Conservador. Si tras medir quieres más, prueba Medio y luego Extremo, comparando siempre el antes y el después."}}, {"@type": "Question", "name": "¿Necesito reiniciar después de aplicar un perfil?", "acceptedAnswer": {"@type": "Answer", "text": "Muchos ajustes de la tarjeta de red se aplican al reiniciar el adaptador; algunos del sistema requieren reiniciar el equipo. La app te avisa."}}, {"@type": "Question", "name": "¿El guardián consume muchos recursos?", "acceptedAnswer": {"@type": "Answer", "text": "No. Comprueba los ajustes en momentos concretos (inicio, reanudar, cambio de red y cada 15 minutos) y el resto del tiempo está en reposo."}}, {"@type": "Question", "name": "¿Puedo usar la app gratis?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. La versión gratuita incluye el perfil Conservador, las mediciones (ping, MTU, DNS, bufferbloat, tracert) y los ajustes seguros. Pro desbloquea el resto."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://choribeta6-code.github.io/PingTcpTools/"}, {"@type": "ListItem", "position": 2, "name": "Guías", "item": "https://choribeta6-code.github.io/PingTcpTools/guias.html"}, {"@type": "ListItem", "position": 3, "name": "Perfiles de optimización, restauración y guardián", "item": "https://choribeta6-code.github.io/PingTcpTools/perfiles-de-optimizacion.html"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/favicon.svg" width="28" height="28" alt=""> Ping<b>Tcp</b><span>Tools</span></a>
+  <nav>
+    <a class="hide" href="index.html#funciones"><span data-l="es">Funciones</span><span data-l="en">Features</span></a>
+    <a class="hide" href="index.html#como"><span data-l="es">Cómo funciona</span><span data-l="en">How it works</span></a>
+    <a class="hide" href="index.html#precio"><span data-l="es">Precio</span><span data-l="en">Pricing</span></a>
+    <a class="hide" href="index.html#faq">FAQ</a>
+    <a class="hide" href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <button class="lang" id="langBtn" type="button" aria-label="Language">EN</button>
+  </nav>
+</div></header>
+<main><article class="doc guide">
+<nav class="crumbs" aria-label="Ruta"><a href="index.html">Inicio</a> › <a href="guias.html">Guías</a> › <span>Perfiles de optimización, restauración y guardián</span></nav>
+<h1>Guía de PingTcpTools: perfiles Conservador, Medio y Extremo, restauración y guardián</h1>
+<div class="upd">Actualizado: 17 de noviembre de 2026 · Lectura: 4 min · Por el equipo de PingTcpTools</div>
+<p data-l="en" class="en-note">This guide is currently available in Spanish only. Use your browser’s translate option to read it in English.</p>
+<figure class="gfig"><img src="assets/shot-panel.png" alt="Panel de PingTcpTools con perfiles de optimización Conservador, Medio y Extremo" loading="lazy" width="1200" height="720"><figcaption>Panel de PingTcpTools con perfiles de optimización Conservador, Medio y Extremo.</figcaption></figure>
+<nav class="toc" aria-label="Contenido"><div class="toc-t">En esta guía</div><ol><li><a href="#preparar">1. Prepara el equipo</a></li><li><a href="#medir">2. Mide tu punto de partida</a></li><li><a href="#perfiles">3. Elige un perfil</a></li><li><a href="#comparar">4. Compara el antes y el después</a></li><li><a href="#manual">5. Ajuste fino (opcional)</a></li><li><a href="#restaurar">6. Cómo deshacerlo todo</a></li><li><a href="#guardian">7. El guardián (Pro)</a></li><li><a href="#actualizaciones">8. Actualizaciones</a></li><li><a href="#faq">Preguntas frecuentes</a></li></ol></nav>
+<p class="lead">PingTcpTools está diseñado para que puedas optimizar tu PC sin conocer cada ajuste de memoria, pero también sin perder el control. Esta guía explica el método recomendado: medir, aplicar un perfil, comparar y, si algo no te convence, volver atrás con un clic.</p>
+
+<h2 id="preparar">1. Prepara el equipo</h2>
+<ol>
+<li><b>Crea un punto de restauración</b>: escribe «Crear un punto de restauración» en el menú Inicio, selecciona tu disco del sistema y pulsa «Crear». Es tu red de seguridad a nivel de Windows.</li>
+<li>Actualiza el controlador de tu tarjeta de red desde la web del fabricante.</li>
+<li>Si puedes, conecta la PC al router por cable.</li>
+</ol>
+
+<h2 id="medir">2. Mide tu punto de partida</h2>
+<p>Antes de optimizar, usa las herramientas de medición de la app: ping, <a href="que-es-bufferbloat.html">bufferbloat</a> y MTU. La <b>puntuación del equipo</b> (de 0 a 1000) resume el estado de tus ajustes de red, booster, TCP, MTU, DNS, bufferbloat y ping, y sube a medida que optimizas. No es una medida de FPS, sino una forma rápida de ver tu progreso.</p>
+
+<h2 id="perfiles">3. Elige un perfil</h2>
+<table>
+<tr><th>Perfil</th><th>Qué aplica</th><th>Para quién</th></tr>
+<tr><td><b>Conservador</b> (gratis)</td><td>Ajustes de red de bajo riesgo con su valor recomendado (por ejemplo, Ethernet sin ahorro de energía, RSS activado, sin agrupación de paquetes de Windows, Jumbo Frames desactivado) y los interruptores de nivel Seguro del booster.</td><td>Todo el mundo. El punto de partida recomendado.</td></tr>
+<tr><td><b>Medio</b> (Pro)</td><td>Todo lo anterior, más: desactiva los offloads que agrupan paquetes recibidos y enviados por UDP (RSC, USO), mide y aplica tu <a href="como-cambiar-el-mtu-windows.html">MTU óptimo</a>, elige y aplica el <a href="mejor-dns-para-jugar.html">DNS más rápido</a> y activa el booster de nivel Medio.</td><td>Jugadores que quieren más reducción de latencia y aceptan algo más de uso de CPU.</td></tr>
+<tr><td><b>Extremo</b> (Pro)</td><td>Todo lo anterior, más: desactiva Large Send Offload, la moderación de interrupciones y el control de flujo, y activa el booster de nivel Avanzado.</td><td>Equipos dedicados a jugar, siempre midiendo y comparando.</td></tr>
+</table>
+<p>Los ajustes que reducen la seguridad, como desactivar la Integridad de memoria, nunca se aplican con un perfil: hay que activarlos a mano y la app pide confirmación.</p>
+<p>Recomendación: empieza con Conservador, mide, y sube de nivel solo si ves mejora. Cuando la app te lo pida, <b>reinicia el adaptador de red</b> (o el equipo) para que los cambios se apliquen.</p>
+
+<aside class="cta"><div class="cta-t">Hazlo en un clic con PingTcpTools</div><p>Mide tu ping y tu bufferbloat, aplica los ajustes de esta guía con su valor recomendado y revierte cualquier cambio cuando quieras. Windows 10/11. Versión gratuita y Pro.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<h2 id="comparar">4. Compara el antes y el después</h2>
+<p>Repite las mismas mediciones en condiciones parecidas (misma hora, mismos dispositivos usando la red). Mira el ping medio, los picos y el bufferbloat. Si algún ajuste empeora algo en tu equipo, puedes volver a su valor original desde la pestaña correspondiente.</p>
+
+<h2 id="manual">5. Ajuste fino (opcional)</h2>
+<p>Si quieres más control, cada propiedad de la <a href="ajustes-tarjeta-de-red-gaming.html">tarjeta de red</a>, cada <a href="optimizar-tcp-ip-windows.html">ajuste TCP/IP</a> y cada interruptor del <a href="aumentar-fps-windows.html">Booster de FPS</a> tiene su descripción y su valor recomendado. Puedes cambiarlos uno por uno.</p>
+
+<h2 id="restaurar">6. Cómo deshacerlo todo</h2>
+<p>La primera vez que la app cambia un ajuste, guarda su valor original. Con el botón <b>«Restaurar originales»</b>, todos los ajustes de la tarjeta de red vuelven a como estaban. Los interruptores del booster se desactivan individualmente o con «Revertir». Y si algo fallara, siempre tienes el punto de restauración de Windows.</p>
+
+<h2 id="guardian">7. El guardián (Pro)</h2>
+<p>Windows Update, una actualización del controlador o algunos programas pueden devolver ajustes a sus valores por defecto sin avisar. El <b>guardián</b> de la versión Pro vigila solo los ajustes que tú aplicaste desde la app y los vuelve a poner si cambian. Comprueba al iniciar Windows, al volver de suspensión, al cambiar de red y cada 15 minutos, y registra lo que corrigió. Funciona desde el icono junto al reloj y puedes desactivarlo cuando quieras. Si pulsas «Restaurar originales», deja de vigilar esos ajustes.</p>
+
+<h2 id="actualizaciones">8. Actualizaciones</h2>
+<p>La app comprueba si hay una versión nueva y te pregunta si quieres instalarla. La descarga se verifica antes de instalarse, y tu licencia y tus ajustes se conservan.</p>
+
+<section class="faq-g" id="faq"><h2>Preguntas frecuentes</h2><details><summary>¿Qué perfil debo usar?</summary><p>Empieza con Conservador. Si tras medir quieres más, prueba Medio y luego Extremo, comparando siempre el antes y el después.</p></details><details><summary>¿Necesito reiniciar después de aplicar un perfil?</summary><p>Muchos ajustes de la tarjeta de red se aplican al reiniciar el adaptador; algunos del sistema requieren reiniciar el equipo. La app te avisa.</p></details><details><summary>¿El guardián consume muchos recursos?</summary><p>No. Comprueba los ajustes en momentos concretos (inicio, reanudar, cambio de red y cada 15 minutos) y el resto del tiempo está en reposo.</p></details><details><summary>¿Puedo usar la app gratis?</summary><p>Sí. La versión gratuita incluye el perfil Conservador, las mediciones (ping, MTU, DNS, bufferbloat, tracert) y los ajustes seguros. Pro desbloquea el resto.</p></details></section>
+<aside class="cta"><div class="cta-t">¿Listo para optimizar tu PC?</div><p>Empieza gratis con el perfil Conservador y compara tu ping antes y después. Pasa a Pro para desbloquear todos los ajustes, el overlay y el guardián.</p><div class="btns"><a class="btn" href="index.html#descargar">Descargar PingTcpTools</a><a class="btn alt" href="index.html#precio">Ver versión Pro</a></div></aside>
+<section class="rel"><h2>Guías relacionadas</h2><div class="grid"><a class="card rcard" href="como-bajar-el-ping-windows.html"><h3>Cómo bajar el ping en Windows</h3><p>La guía principal: qué es el ping, qué lo sube y qué puedes hacer de verdad para bajarlo, paso a paso.</p></a><a class="card rcard" href="ajustes-tarjeta-de-red-gaming.html"><h3>Ajustes de la tarjeta de red para gaming</h3><p>Cada propiedad avanzada del adaptador explicada: qué hace, cuándo cambiarla y qué ganas o pierdes.</p></a><a class="card rcard" href="aumentar-fps-windows.html"><h3>Cómo aumentar los FPS en Windows</h3><p>Planes de energía, Modo Juego, Defender, memoria y virtualización: qué ajustes de Windows dan FPS y cuáles no.</p></a></div></section>
+<p class="disc">Los resultados dependen de tu equipo, tu tarjeta de red y tu conexión. Ningún programa puede garantizar una mejora concreta de ping o FPS. Crea un punto de restauración de Windows antes de cambiar ajustes del sistema.</p>
+</article></main>
+<footer><div class="wrap">
+  <div class="links"><span>v1.1</span>
+    <a href="guias.html"><span data-l="es">Guías</span><span data-l="en">Guides</span></a>
+    <a href="terms.html"><span data-l="es">Términos de uso</span><span data-l="en">Terms of use</span></a>
+    <a href="privacy.html"><span data-l="es">Privacidad</span><span data-l="en">Privacy</span></a>
+    <a href="refund.html"><span data-l="es">Reembolsos</span><span data-l="en">Refunds</span></a>
+    <a href="mailto:choribeta6@gmail.com"><span data-l="es">Contacto</span><span data-l="en">Contact</span></a>
+  </div>
+  <div>© <span id="yr">2026</span> PingTcpTools. <span data-l="es">Windows 10/11 (64 bits). Programa independiente; no está afiliado a Microsoft, Realtek, Intel ni a ningún fabricante de tarjetas de red.</span><span data-l="en">Windows 10/11 (64-bit). Independent software; not affiliated with Microsoft, Realtek, Intel or any network card maker.</span></div>
+</div></footer>
+</body></html>

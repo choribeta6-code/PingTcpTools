@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://choribeta6-code.github.io/PingTcpTools/sitemap.xml
